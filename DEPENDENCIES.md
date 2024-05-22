@@ -4,6 +4,7 @@
 | koa                           | MIT          | 2.15.3            | ^2.15.3         | 2.15.3         | 2.15.3                | 2024-04-14T18:41:46.500Z | n/a                                                                                    |
 | koa-router                    | MIT          | 12.0.1            | ^12.0.1         | 12.0.1         | 12.0.1                | 2023-10-24T14:45:41.757Z | Alex Mingoia <talk@alexmingoia.com>                                                    |
 | typescript                    | Apache-2.0   | 5.4.5             | ^5.4.5          | 5.4.5          | 5.4.5                 | 2024-05-22T07:12:41.361Z | Microsoft Corp.                                                                        |
+| zod                           | MIT          | 3.23.8            | ^3.23.8         | 3.23.8         | 3.23.8                | 2024-05-08T19:13:04.938Z | Colin McDonnell <colin@colinhacks.com>                                                 |
 | @eslint/js                    | MIT          | 9.3.0             | ^9.3.0          | 9.3.0          | 9.3.0                 | 2024-05-17T20:17:49.074Z | n/a                                                                                    |
 | @shopify/jest-koa-mocks       | MIT          | 5.1.1             | ^5.1.1          | 5.1.1          | 5.1.1                 | 2024-02-29T21:05:26.960Z | Shopify Inc.                                                                           |
 | @types/eslint-config-prettier | MIT          | 6.11.3            | ^6.11.3         | 6.11.3         | 6.11.3                | 2024-03-11T08:40:15.157Z | n/a                                                                                    |
@@ -19,5 +20,4 @@
 | ts-node                       | MIT          | 10.9.2            | ^10.9.2         | 10.9.2         | 10.9.2                | 2023-12-08T12:04:46.309Z | Blake Embrey hello@blakeembrey.com http://blakeembrey.me                               |
 | tsx                           | MIT          | 4.10.5            | ^4.10.5         | 4.10.5         | 4.10.5                | 2024-05-18T07:13:30.210Z | Hiroki Osame hiroki.osame@gmail.com                                                    |
 | typescript-eslint             | MIT          | 7.10.0            | ^7.10.0         | 7.10.0         | 7.10.0                | 2024-05-20T17:36:34.193Z | n/a                                                                                    |
-| zod                           | MIT          | 3.23.8            | ^3.23.8         | 3.23.8         | 3.23.8                | 2024-05-08T19:13:04.938Z | Colin McDonnell <colin@colinhacks.com>                                                 |
 

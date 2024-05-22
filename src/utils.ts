@@ -40,7 +40,6 @@ export const getRomanNumeral = (integer: number): string => {
     try {
         const schema = z.coerce.number().min(MINIMUM_INTEGER).max(MAXIMUM_INTEGER);
         schema.parse(integer);
-
     } catch(e) {
         throw new Error(`bad input: ${integer}`);
     }
