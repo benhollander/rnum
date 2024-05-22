@@ -9,9 +9,9 @@ const app = new Koa();
 const PORT = 3000;
 
 app.use(cors());
+app.use(router.routes());
 app.use(validator);
 app.use(parseQuery);
-app.use(router.routes());
 
 app.listen(PORT, () => {
   console.log(`🚀 Server is running on port http://localhost:${PORT}/`);

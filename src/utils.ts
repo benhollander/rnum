@@ -1,4 +1,4 @@
-import Joi from 'joi';
+import { z } from 'zod';
 
 import { MAXIMUM_INTEGER, MINIMUM_INTEGER } from './constants';
 
@@ -33,34 +33,36 @@ export const getUnits = (units: number): string => {
     return '';
 }
 
+// Another alternative implementation using recursion is below
+// There are likely a number of other ways to do this using math functions
+// In this case, I wanted to lean into readability and testability as much as possible
 export const getRomanNumeral = (integer: number): string => {
     try {
-        Joi.assert(integer, Joi.number().integer().min(MINIMUM_INTEGER).max(MAXIMUM_INTEGER));
+        const schema = z.coerce.number().min(MINIMUM_INTEGER).max(MAXIMUM_INTEGER);
+        schema.parse(integer);
+
     } catch(e) {
         throw new Error(`bad input: ${integer}`);
     }
 
-    let result = '';
-
+    // split the number into place values
     const thousands = Math.floor(integer / 1000);
     const hundreds = Math.floor((integer - thousands * 1000) / 100);
     const tens = Math.floor((integer - hundreds * 100 - thousands * 1000) / 10);
     const units = integer % 10;
     
     // Build the string starting with thousands
-    result += getThousands(thousands);
+    let result = getThousands(thousands);
     result += getHundreds(hundreds);
     result += getTens(tens);
     result += getUnits(units);
 
     return result;
-
 }
 
 // Alternative implementation using recursion
 // export const getRomanNumeral = (integer:number, previous=''):string => {
 //     // Follow the logic outlined in the table at the bottom of README.md
-//     // TODO: Is there a more efficient way to do this by dividing by 1000/100/10/etc?
 
 //     const units = integer % 10;
 //     const tens = Math.floor(integer / 10);
