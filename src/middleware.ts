@@ -12,6 +12,7 @@ export const validator:Middleware = async (ctx, next) => {
         query: z.coerce.number().min(MINIMUM_INTEGER).max(MAXIMUM_INTEGER)
     }).partial();
 
+    console.log(ctx.query)
     try {
         // if min or max is included, both are required.
         if (query.min || query.max) {
@@ -23,6 +24,7 @@ export const validator:Middleware = async (ctx, next) => {
     } catch (e) {
         ctx.throw(406);
     }
+
     await next();
 }
 
