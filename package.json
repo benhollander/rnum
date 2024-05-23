@@ -5,9 +5,10 @@
   "scripts": {
     "build": "rimraf ./build && tsc",
     "dev": "tsx watch src/index.ts",
-    "generate-license-report": "license-report > DEPENDENCIES.md",
+    "generate-license-report": "license-report > docs/DEPENDENCIES.md",
     "lint": "eslint .",
     "prepare": "husky || true",
+    "start": "docker compose up --build",
     "test": "jest",
     "test:watch": "jest --watch"
   },
@@ -19,8 +20,7 @@
     "@types/eslint-config-prettier": "^6.11.3",
     "@types/jest": "^29.5.12",
     "@types/koa": "^2.15.0",
-    "@types/koa__cors": "^5.0.0",
-    "@types/koa-router": "^7.4.8",
+    "@types/koa__router": "^12.0.4",
     "eslint": "^8.57.0",
     "eslint-plugin-jest": "^28.5.0",
     "husky": "^9.0.11",
@@ -31,9 +31,9 @@
     "typescript-eslint": "^7.10.0"
   },
   "dependencies": {
-    "@koa/cors": "^5.0.0",
+    "@koa/router": "^12.0.1",
+    "dd-trace": "^5.14.1",
     "koa": "^2.15.3",
-    "koa-router": "^12.0.1",
     "typescript": "^5.4.5",
     "zod": "^3.23.8"
   }

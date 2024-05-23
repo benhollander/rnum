@@ -8,9 +8,8 @@ describe('validator', () => {
             url: 'romannumeral/?query=3'
         });
 
-        //@ts-expect-error TODO: Remove this 
+        //@ts-expect-error TODO: fix this typescript error
         await validator({request: { query: { query: 3 }}}, () => {})
-        console.log(ctx)
 
         expect(ctx.body).toBe({ input: 3, output: 'III'})
     });

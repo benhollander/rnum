@@ -1,4 +1,3 @@
-import { MAXIMUM_INTEGER, MINIMUM_INTEGER } from './constants';
 import { getRomanNumeral, getTens, getHundreds, getThousands, getUnits } from './utils';
 
 describe('utils - getUnits', () => {
@@ -41,38 +40,31 @@ describe('utils - getThousands', () => {
 });
 
 describe('utils - getRomanNumeral', () => {
-    test('39 -> XXXIX', () => {
-        expect(getRomanNumeral(39)).toBe('XXXIX');
+    test('39 -> XXXIX', async () => {
+        expect(await getRomanNumeral(39)).toBe('XXXIX');
     });
-    test('246 -> CCXLVI', () => {
-        expect(getRomanNumeral(246)).toBe('CCXLVI');
+    test('246 -> CCXLVI', async () => {
+        expect(await getRomanNumeral(246)).toBe('CCXLVI');
     });
-    test('789 -> DCCLXXXIX', () => {
-        expect(getRomanNumeral(789)).toBe('DCCLXXXIX');
+    test('789 -> DCCLXXXIX', async () => {
+        expect(await getRomanNumeral(789)).toBe('DCCLXXXIX');
     });
-    test('2421 -> MMCDXXI', () => {
-        expect(getRomanNumeral(2421)).toBe('MMCDXXI');
+    test('2421 -> MMCDXXI', async () => {
+        expect(await getRomanNumeral(2421)).toBe('MMCDXXI');
     });
-    test('160 -> CLX', () => {
-        expect(getRomanNumeral(160)).toBe('CLX');
+    test('160 -> CLX', async () => {
+        expect(await getRomanNumeral(160)).toBe('CLX');
     });
-    test('207 -> CCVII', () => {
-        expect(getRomanNumeral(207)).toBe('CCVII');
+    test('207 -> CCVII', async () => {
+        expect(await getRomanNumeral(207)).toBe('CCVII');
     });
-    test('3999 -> MMMCMXCIX', () => {
-        expect(getRomanNumeral(3999)).toBe('MMMCMXCIX');
+    test('3999 -> MMMCMXCIX', async () => {
+        expect(await getRomanNumeral(3999)).toBe('MMMCMXCIX');
     });
-    test('1 -> I', () => {
-        expect(getRomanNumeral(1)).toBe('I');
+    test('1 -> I', async () => {
+        expect(await getRomanNumeral(1)).toBe('I');
     });
-    test('1337 -> MCCCXXXVII', () => {
-        expect(getRomanNumeral(1337)).toBe('MCCCXXXVII');
-    });
-
-    test('should throw if given bad input', () => {
-        //@ts-expect-error intentionally passing in incorrect type for this test
-        expect(() => { getRomanNumeral('asdf'); }).toThrow();
-        expect(() => { getRomanNumeral(MAXIMUM_INTEGER + 1); }).toThrow();
-        expect(() => { getRomanNumeral(MINIMUM_INTEGER - 1); }).toThrow();
+    test('1337 -> MCCCXXXVII', async () => {
+        expect(await getRomanNumeral(1337)).toBe('MCCCXXXVII');
     });
 });

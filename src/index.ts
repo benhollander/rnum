@@ -1,15 +1,18 @@
 import Koa from 'koa';
-import cors from '@koa/cors';
+import Router from '@koa/router'
 
-import { router } from './routes';
+import './tracer';
 import { parseQuery, validator } from './middleware';
+import { PORT } from './constants';
 
 const app = new Koa();
+const router = new Router();
 
-const PORT = 3000;
+// router.get('/romannumeral', validator, parseQuery);
+router.get('/romannumeral')
 
-app.use(cors());
 app.use(router.routes());
+app.use(router.allowedMethods());
 app.use(validator);
 app.use(parseQuery);
 

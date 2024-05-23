@@ -6,7 +6,6 @@ import { MAXIMUM_INTEGER, MINIMUM_INTEGER } from "./constants";
 
 export const validator:Middleware = async (ctx, next) => {
     const { query } = ctx.request;
-    console.log(query)
     const querySchema = z.object({
         min: z.coerce.number().min(MINIMUM_INTEGER).max(MAXIMUM_INTEGER).lt(parseInt(query.max as string, 10)),
         max: z.coerce.number().min(MINIMUM_INTEGER).max(MAXIMUM_INTEGER).gt(parseInt(query.min as string, 10)),
@@ -18,15 +17,12 @@ export const validator:Middleware = async (ctx, next) => {
         if (query.min || query.max) {
             querySchema.required({ min: true, max: true }).parse({ min: query.min, max: query.max });
         }
-        else {
+        if (query.query) {
             querySchema.required({ query: true }).parse({ query: query.query });
         }
     } catch (e) {
-        console.error(e);
-        ctx.response.status = 406;
-        return;
+        ctx.throw(406);
     }
-
     await next();
 }
 
@@ -41,20 +37,28 @@ interface Body extends Result {
 export const parseQuery:Middleware = async (ctx, next) => {
     const { max, min, query } = ctx.request.query;
     const body:Body = {};
+
     if (max && min) {
-        body.conversions = [];
+        // build a list of promises so that roman numerals can be calculated in parallel
+        const conversions:Promise<Result>[] = [];
         // casting types should be safe here as long as we've run the validator middleware first
         for (let i=parseInt(min as string, 10); i<=parseInt(max as string, 10); i++) {
-            body.conversions.push({
-                input: i,
-                output: getRomanNumeral(i)
-            });
+            conversions.push(new Promise((resolve) => {
+                getRomanNumeral(i).then((rnum) => {
+                    resolve({
+                        input: i,
+                        output: rnum
+                    });
+                });
+        }));
         }
+        // wait for all promises to complete
+        body.conversions = await Promise.all(conversions);
     } 
 
     if (query) {
         body.input = parseInt(query as string, 10);
-        body.output = getRomanNumeral(parseInt(query as string, 10));
+        body.output = await getRomanNumeral(parseInt(query as string, 10));
     }
 
     ctx.body = body;
