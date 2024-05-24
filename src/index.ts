@@ -10,14 +10,11 @@ const logger = getLogger();
 const app = new Koa();
 const router = new Router();
 
-// router.get('/romannumeral', validator, parseQuery);
-router.get('/romannumeral')
+router.get('/romannumeral', validator, parseQuery);
 
 app.use(router.routes());
 app.use(router.allowedMethods());
-app.use(validator);
-app.use(parseQuery);
 
 app.listen(PORT, () => {
-  logger.log({ level: 'info', message: `🚀 Server is running on port http://localhost:${PORT}/`});
+  logger.info(`🚀 Server is running on port http://localhost:${PORT}/`);
 });
