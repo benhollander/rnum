@@ -1,3 +1,6 @@
+import { getLogger } from "./logger";
+const logger = getLogger();
+
 export const getThousands = (thousands: number): string => {
     return 'M'.repeat(thousands);
 };
@@ -53,7 +56,7 @@ export const getRomanNumeral = (integer: number): Promise<string> => {
         // (skip this step in proudction mode)
         if (process.env.NODE_ENV !== 'production') {
             const randomInterval = Math.floor(Math.random()*10);
-            console.log(`wait for ${randomInterval}ms before resolving ${integer} -> ${result}`)
+            logger.info(`wait for ${randomInterval}ms before resolving ${integer} -> ${result}`);
             setTimeout(() => { resolve(result) }, randomInterval);
         } else {
             resolve(result);

@@ -3,6 +3,9 @@ import { z } from 'zod';
 
 import { getRomanNumeral } from "./utils";
 import { MAXIMUM_INTEGER, MINIMUM_INTEGER } from "./constants";
+import { getLogger } from "./logger";
+
+const logger = getLogger();
 
 export const validator:Middleware = async (ctx, next) => {
     const { query } = ctx.request;
@@ -12,7 +15,6 @@ export const validator:Middleware = async (ctx, next) => {
         query: z.coerce.number().min(MINIMUM_INTEGER).max(MAXIMUM_INTEGER)
     }).partial();
 
-    console.log(ctx.query)
     try {
         // if min or max is included, both are required.
         if (query.min || query.max) {
@@ -22,6 +24,7 @@ export const validator:Middleware = async (ctx, next) => {
             querySchema.required({ query: true }).parse({ query: query.query });
         }
     } catch (e) {
+        logger.error('validation error', e);
         ctx.throw(406);
     }
 
@@ -54,8 +57,13 @@ export const parseQuery:Middleware = async (ctx, next) => {
                 });
         }));
         }
-        // wait for all promises to complete
-        body.conversions = await Promise.all(conversions);
+        // Wait for all promises to complete before continuing.
+        try {
+            body.conversions = await Promise.all(conversions);
+        } catch(e) {
+            logger.error('Roman Numeral conversion error', e);
+            ctx.throw(500);
+        }
     } 
 
     if (query) {

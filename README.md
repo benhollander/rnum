@@ -23,6 +23,7 @@ _Supports integers 1-3999_
 ### Running in development mode
 Automatically refreshes server on save for faster development
 ```sh
+npm ci
 npm run dev
 ```
 
@@ -65,20 +66,45 @@ This typescript project utilizes [koa](https://github.com/koajs/koa) HTTP middle
 │   └── utils.ts # all functions used to calcuate roman numerals
 └── tsconfig.json
 ```
+### Logging
+This project uses [winston](https://github.com/winstonjs/winston) for logging.
+Running app logs are stored in the `./logs` directory and also sent to datadog (if datadog agent is set up locally).
+#### Example
+```typescript
+import { getLogger } from "./logger";
+const logger = getLogger();
+
+// log info
+logger.info('I am an info-level log.');
+
+// some code that could throw an error
+try {
+    throw new Error('example error');
+} catch(e) {
+    // log error
+    logger.error('exception', {
+        error: {
+            message: e.message,
+            stack: e.stack
+        }
+    });
+};
+```
 
 ### Dependencies
-Dependencies are installed via `npm ci`. [DEPENDENCIES.md](docs/DEPENDENCIES.md) contains a report of all dependencies and their license data.
+[DEPENDENCIES.md](docs/DEPENDENCIES.md) contains a report of all dependencies and their license data.
  
 ### Monitoring
 Resource monitoring is available through datadog, along with APM if [configured](https://docs.datadoghq.com/containers/docker/?tab=standard#setup) and deployed with your API key
 ![datadog dashboard example](./docs/datadog_dashboard.png)
-![alt text](image.png)
-
 
 ## Future considerations
 * Set up CI/CD deployment
+  * Set up push on green workflow
+  * Use environment variables for datadog API keys
 * Instrument logging/datadog further
   * differentiate between enviornments, monitor success metrics, set up error alerting, etc
+  * Remove requirement for [local datadog agent](https://docs.datadoghq.com/logs/log_collection/nodejs/?tab=winston30#agentless-logging), or make the agent portable
 * Improve scalability - eg. Rate limiting to prevent DDoS attacks
 
 [^1]: Following the 'Standard form' outlined  at https://en.wikipedia.org/wiki/Roman_numerals

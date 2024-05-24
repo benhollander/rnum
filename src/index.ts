@@ -4,7 +4,9 @@ import Router from '@koa/router'
 import './tracer';
 import { parseQuery, validator } from './middleware';
 import { PORT } from './constants';
+import { getLogger } from './logger';
 
+const logger = getLogger();
 const app = new Koa();
 const router = new Router();
 
@@ -17,5 +19,5 @@ app.use(validator);
 app.use(parseQuery);
 
 app.listen(PORT, () => {
-  console.log(`🚀 Server is running on port http://localhost:${PORT}/`);
+  logger.log({ level: 'info', message: `🚀 Server is running on port http://localhost:${PORT}/`});
 });
