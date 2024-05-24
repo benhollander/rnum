@@ -105,6 +105,7 @@ Resource monitoring is available through datadog, along with APM if [configured]
 * Instrument logging/datadog further
   * differentiate between enviornments, monitor success metrics, set up error alerting, etc
   * Remove requirement for [local datadog agent](https://docs.datadoghq.com/logs/log_collection/nodejs/?tab=winston30#agentless-logging), or make the agent portable
+  * Automate log file purging
 * Improve scalability - eg. Rate limiting to prevent DDoS attacks
 * Serve the Dockerized version via https instead of port 3000
 
